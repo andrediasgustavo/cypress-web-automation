@@ -31,3 +31,4 @@ jobs:
           name: cypress-signup-report
           path: cypress/reports/**
           if-no-files-found: warn
+          retention-days: 2
