@@ -1,0 +1,33 @@
+name: Cypress Signup Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run signup tests
+        run: npm run test:signup
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-signup-report
+          path: cypress/reports/**
+          if-no-files-found: warn
